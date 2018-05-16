@@ -3,10 +3,23 @@ const router = express.Router();
 const Sighting = require('../models/sighting');
 
 
-// GET for get all the sighting
+// GET to get all the sightings
 
+router.get('/all', (req, res, next) => {
+  if (!req.session.currentUser) {
+    return res.status(401).json({ code: 'unauthorized' });
+  }
+  Sighting.find()
+  .then((result) => {
+    const data = {
+      places: result
+    }
+    res.json(data);
+  });
 
-// POST for create a new Sighting
+});
+
+// POST for creating a new Sighting
 router.post('/', (req, res, next) => {
   if (!req.session.currentUser) {
     return res.status(401).json({ code: 'unauthorized' });
