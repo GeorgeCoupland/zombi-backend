@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+require('dotenv').config();
 
 
 const profile = require('./routes/profile');
@@ -16,14 +17,14 @@ const sighting = require('./routes/sighting')
 const app = express();
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/zombies', {
+mongoose.connect(process.env.MONGODB_URI, {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE
 });
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:4200']
+  origin: [process.env.CLIENT_URL]
 }));
 
 app.use(session({
