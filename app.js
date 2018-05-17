@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,7 +9,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-require('dotenv').config();
 
 
 const profile = require('./routes/profile');
